@@ -29,7 +29,20 @@ fn number_of_lines(file_path: &str) -> io::Result<()> {
 
     Ok(())
 }
-fn number_of_words() {}
+fn number_of_words(file_path: &str) {
+    let f = File::open(file_path).expect("Error opening the file");
+    let reader = BufReader::new(f);
+
+    let mut word_count: u32 = 0;
+    for line in reader.lines() {
+        let curr: String = line.expect("Error reading content of the file");
+        let words: Vec<&str> = curr.split(" ").collect();
+        let filtered_words: Vec<&str> = words.into_iter().filter(|word| word.len() > 0).collect();
+        word_count += filtered_words.len() as u32
+    }
+
+    println!("{}", word_count);
+}
 fn number_of_characters() {}
 
 fn main() {
@@ -41,7 +54,7 @@ fn main() {
     } else if args.len() > 1 && args[1] == "-l" {
         number_of_lines(file_path).unwrap();
     } else if args.len() > 1 && args[1] == "-w" {
-        number_of_words();
+        number_of_words(&file_path);
     } else if args.len() > 1 && args[1] == "-m" {
         number_of_characters();
     } else {
