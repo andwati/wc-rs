@@ -41,7 +41,21 @@ fn number_of_words(file_path: &str) {
 
     println!("{}", word_count);
 }
-fn number_of_characters() {}
+
+fn number_of_characters(file_path: &str) -> io::Result<()> {
+    let f = File::open(file_path)?;
+    let reader = BufReader::new(f);
+
+    let mut char_count: usize = 0;
+    for line in reader.lines() {
+        let line_bytes: Vec<u8> = line?.as_bytes().to_vec();
+        char_count += line_bytes.len();
+    }
+
+    println!("{}", char_count);
+
+    Ok(())
+}
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -54,7 +68,7 @@ fn main() {
     } else if args.len() > 1 && args[1] == "-w" {
         number_of_words(&file_path);
     } else if args.len() > 1 && args[1] == "-m" {
-        number_of_characters();
+        number_of_characters(file_path).unwrap();
     } else {
         eprintln!("Usage: wc-tool -c <filepath>");
         std::process::exit(1);
