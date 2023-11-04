@@ -21,9 +21,6 @@ fn number_of_lines(file_path: &str) -> io::Result<()> {
     let f = File::open(file_path)?;
     let reader = BufReader::new(f);
 
-    // let mut line = String::new();
-    // let len = reader.read_line(&mut line)?;
-    // println!("{} {}", len, file_path);
     let line_count = reader.lines().count();
     println!("{} {}", line_count, file_path);
 
