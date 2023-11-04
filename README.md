@@ -1,4 +1,4 @@
-# codingchallenges
+# Coding Challenges
 My solutions to the coding challenges from [https://codingchallenges.fyi/](https://codingchallenges.fyi/)
 
 # Why?
