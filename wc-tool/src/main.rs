@@ -18,6 +18,6 @@ fn main() -> io::Result<()> {
     reader.read_to_end(&mut buffer)?;
 
     let total_bytes = buffer.len();
-    println!("total bytes: {}", total_bytes);
+    println!("{} {}", total_bytes, file_name);
     Ok(())
 }
