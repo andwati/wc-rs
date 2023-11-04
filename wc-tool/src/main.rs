@@ -36,7 +36,8 @@ fn number_of_words(file_path: &str) {
     let mut word_count: u32 = 0;
     for line in reader.lines() {
         let curr: String = line.expect("Error reading content of the file");
-        let words: Vec<&str> = curr.split(" ").collect();
+        // let words: Vec<&str> = curr.split(" ").collect();
+        let words: Vec<&str> = curr.split_whitespace().collect();
         let filtered_words: Vec<&str> = words.into_iter().filter(|word| word.len() > 0).collect();
         word_count += filtered_words.len() as u32
     }
