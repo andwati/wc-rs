@@ -3,12 +3,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::{self, BufReader};
 
-fn main() -> io::Result<()> {
-    let current_dir = env::current_dir()?;
-    let file_name = "test.txt";
-    let file_path = current_dir.join(file_name);
-    println!("file path: {:?}", file_path);
-
+fn total_bytes(file_path: &str) -> io::Result<()> {
     let f = File::open(file_path)?;
 
     let mut reader = BufReader::new(f);
@@ -18,6 +13,17 @@ fn main() -> io::Result<()> {
     reader.read_to_end(&mut buffer)?;
 
     let total_bytes = buffer.len();
-    println!("{} {}", total_bytes, file_name);
+    println!("{} {}", total_bytes, file_path);
     Ok(())
+}
+fn main() {
+    let args: Vec<String> = env::args().collect();
+    let file_path = &args[2];
+
+    if args.len() > 1 && args[1] == "-c" {
+        total_bytes(file_path).unwrap();
+    } else {
+        eprintln!("Usage: wc-tool -c <filepath>");
+        std::process::exit(1);
+    }
 }
