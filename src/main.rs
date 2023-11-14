@@ -46,7 +46,7 @@ fn number_of_characters(file_path: &str) {
     let mut file = File::open(file_path).unwrap();
     let mut s = String::new();
     file.read_to_string(&mut s).unwrap();
-    print!("{}", s.trim_end().chars().count());
+    print!("{}", s.chars().count());
 }
 
 fn main() {
